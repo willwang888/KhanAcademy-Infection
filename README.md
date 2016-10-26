@@ -2,11 +2,11 @@
 Total and Limited Infection algorithm for Khan Academy Internship
 
 Hey you! Thanks for looking at my KhanAcademy take-home project!
+
 The instructions are as follows:
 
 # Total Infection
 When rolling out big new features, we like to enable them slowly, starting with just the core team, then a handful of users, then some more users, and so on, until we’ve ramped up to 100%. This insulates the majority of users from bad bugs that crop up early in the life of a feature.
-
 
 This strategy can cause problems somewhat unique to our user base. It’s not uncommon for a classroom of students to be using the site together, so it would be confusing to show half of them a completely different version of the site. Children are not software engineers and often have a poor understanding of deployment and a/b testing, so inconsistent colors, layout, and interactions effectively mean the site is broken.
 
@@ -28,15 +28,15 @@ So, let's dive right into it!
 
 My solutions thus far are as follows:
 
-  Total Infection: Breadth First Search through the entire connected graph starting from an inputted userID. If the user does not have the version specified, update the version to the new version. My main function tests my total infection as of now, and I have yet to test my Limited Infection Part 1, explained below. To run, type "g++ -g -Wall User.cpp graph.cpp -o test". To run, type ./test.
+  **Total Infection**: Breadth First Search through the entire connected graph starting from an inputted userID. If the user does not have the version specified, update the version to the new version. My main function tests my total infection as of now, and I have yet to test my Limited Infection Part 1, explained below. To run, type "g++ -g -Wall User.cpp graph.cpp -o test". To run, type ./test.
 
   *Both my limited infection algorithms act on the assumption that the specific disjoint graphs of teachers and students are given*
 
-  Limited Infection Part 1: This part of my solution gives each node, or User, a weight based on how much time they have spent in total on the site. My algorithm goes through the vector of disjoint graphs, represented by userIDs, and sorts them from most time spent on the site to least time spent on the site. Then, it goes through the two dimensional array of vectors and infects the number of people that has been specified.
+  **Limited Infection Part 1**: This part of my solution gives each node, or User, a weight based on how much time they have spent in total on the site. My algorithm goes through the vector of disjoint graphs, represented by userIDs, and sorts them from most time spent on the site to least time spent on the site. Then, it goes through the two dimensional array of vectors and infects the number of people that has been specified.
 
   Note: This algorithm does not account for teacher and student combinations having the same version. For this part, I assumed that the specific version would be sent out to users via a beta, so that users could test the beta themselves, and have their own beta version of the site — similar to the Apple Beta Program, where Apple gives new software betas to certain users who are registered for the program.
 
-  Limited Infection Part 2: This part of my solution is the more logical and "intuitive" way of solving the problem at hand. It will take the number of disjoint graphs and compute their sizes. Then, my algorithm imposes a "bottom up" method of approximation to how many users out of the target can be infected, so that all of the graphs that are infected are COMPLETELY infected (teachers and students have the same version). However, I ran out of time to complete this part of my algorithm, so I left it as only being able to spit out what the total number of users that can be infected.
+  **Limited Infection Part 2**: This part of my solution is the more logical and "intuitive" way of solving the problem at hand. It will take the number of disjoint graphs and compute their sizes. Then, my algorithm imposes a "bottom up" method of approximation to how many users out of the target can be infected, so that all of the graphs that are infected are COMPLETELY infected (teachers and students have the same version). However, I ran out of time to complete this part of my algorithm, so I left it as only being able to spit out what the total number of users that can be infected.
 
   Note: "limitedInfectionAndTest.cpp" has the function and the tests for Part 2. Run it by typing "g++ -g -Wall limitedInfectionAndTest.cpp -o limitedApproxTest". To run, type ./limitedApproxTest.
 
@@ -44,12 +44,12 @@ My solutions thus far are as follows:
 
   There are many improvements I can make to both complete and refine my algorithms.
 
-  1. Some of the implementation in my algorithms I brute forced as I was running out of time; for example, one of the operations being performed on a list of users takes O(n^2)time, and can be written in at least O(n), had I been able to put more time into it.
+  .. 1. Some of the implementation in my algorithms I brute forced as I was running out of time; for example, one of the operations being performed on a list of users takes O(n^2)time, and can be written in at least O(n), had I been able to put more time into it.
 
-  2. For Limited Infection Part 2, I can have the output be *which* graphs are infected that make the number of users closest to the target, and not *how many* users can be infected. That can be done in one of the following ways: putting another layer on top of the matrix to store the graphs that were used to calculate the sum, creating a struct to pass into each instance of the matrix so that it may store which graphs were used in the calculation, or passing the values of *which* graphs AND the size of the graphs in as std::pairs into the function, so that I can take the specific graph names from the respective pairs.
+  .. 2. For Limited Infection Part 2, I can have the output be *which* graphs are infected that make the number of users closest to the target, and not *how many* users can be infected. That can be done in one of the following ways: putting another layer on top of the matrix to store the graphs that were used to calculate the sum, creating a struct to pass into each instance of the matrix so that it may store which graphs were used in the calculation, or passing the values of *which* graphs AND the size of the graphs in as std::pairs into the function, so that I can take the specific graph names from the respective pairs.
 
-  3. For Limited Infection Part 1, I can incorporate the approximation algorithm used in Part 2 to combine the calculation of the weights to number of graphs that can be completely infected. To explain, after sorting the weights of the graphs, as I am going through the 2D array to infect the Users from greatest to least weight, I can calculate what the possible number combinations are from the current sum total that I am on to find as close to the target weight as possible. This can also be done in a bottom up manner, but can also be done with Depth First Search, Djikstra's Algorithm, or even Breadth First Search to find the shortest path. I can definitely explain more about this later!
+  .. 3. For Limited Infection Part 1, I can incorporate the approximation algorithm used in Part 2 to combine the calculation of the weights to number of graphs that can be completely infected. To explain, after sorting the weights of the graphs, as I am going through the 2D array to infect the Users from greatest to least weight, I can calculate what the possible number combinations are from the current sum total that I am on to find as close to the target weight as possible. This can also be done in a bottom up manner, but can also be done with Depth First Search, Djikstra's Algorithm, or even Breadth First Search to find the shortest path. I can definitely explain more about this later!
 
-  4. FOR TESTING, I wasn't able to write out extensive tests for my functions, as I spent a lot of my time thinking about the best way to approach my solutions. I can definitely expand on this more later as well!
+  .. 4. FOR TESTING, I wasn't able to write out extensive tests for my functions, as I spent a lot of my time thinking about the best way to approach my solutions. I can definitely expand on this more later as well!
 
-  5. I also wanted to implement a SQL server to populate my graphs automatically, so that is something I can incorporate in the future.
+  .. 5. I also wanted to implement a SQL server to populate my graphs automatically, so that is something I can incorporate in the future.
